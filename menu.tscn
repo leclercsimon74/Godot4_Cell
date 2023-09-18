@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg7engynbc0r7"]
+
+[ext_resource type="Script" path="res://scene/menu.gd" id="1_ecsyi"]
+[ext_resource type="PackedScene" uid="uid://dn13icmjtjbuu" path="res://scene/cell.tscn" id="2_xr46u"]
+
+[sub_resource type="Gradient" id="Gradient_awggh"]
+colors = PackedColorArray(0.907731, 0.000241231, 0.800454, 1, 0.830335, 0.830335, 0.830335, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5qiu8"]
+noise_type = 2
+seed = 1
+frequency = 0.0203
+cellular_distance_function = 2
+cellular_jitter = 0.9
+cellular_return_type = 0
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xmcve"]
+color_ramp = SubResource("Gradient_awggh")
+noise = SubResource("FastNoiseLite_5qiu8")
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ecsyi")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1151.0
+offset_bottom = 647.0
+texture = SubResource("NoiseTexture2D_xmcve")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -113.0
+offset_right = 144.0
+offset_bottom = -12.0
+grow_vertical = 0
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "New game
+"
+
+[node name="InfoButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Information"
+
+[node name="OptionButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options
+"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="cell" parent="." instance=ExtResource("2_xr46u")]
+position = Vector2(275, 279)
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://mkpw2hrvhpak"]
+
+[ext_resource type="Script" path="res://scene/vesicle.gd" id="1_81qfr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yd17x"]
+
+[node name="Vesicle" type="RigidBody2D"]
+position = Vector2(450, 400)
+gravity_scale = 0.0
+script = ExtResource("1_81qfr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yd17x")
+
+[node name="Growing_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Maturation_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Growing_timer" to="." method="_on_growing_timer_timeout"]
+[connection signal="timeout" from="Maturation_timer" to="." method="_on_maturation_timer_timeout"]
